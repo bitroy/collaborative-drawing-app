@@ -2,7 +2,7 @@ import '@dotenvx/dotenvx/config';
 import cors from 'cors';
 import express from 'express';
 import http from 'http';
-import pino from 'pino';
+import { pino } from 'pino';
 import { Server as SocketIOServer } from 'socket.io';
 
 import { DrawingEvent } from '@drawing-app/types';
@@ -10,10 +10,7 @@ import { DrawingEvent } from '@drawing-app/types';
 const app = express();
 const server = http.createServer(app);
 
-// Use CORS middleware
-// The origin should match your client's development URL
 const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173';
-
 app.use(
   cors({
     origin: corsOrigin,
@@ -36,24 +33,42 @@ const logger = pino({
   level: LOG_LEVEL,
 });
 
-// Basic Express route
+const canvasStore: Record<string, DrawingEvent[]> = {};
+
 app.get('/', (req, res) => {
   res.send('Server is running!');
 });
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {
-  logger.info('A user connected:', socket.id);
+  console.log('New client connected');
 
-  // Example: Listen for 'draw' events from the client
-  socket.on('draw', (drawingEvent: DrawingEvent) => {
-    logger.info('Received drawing event:', drawingEvent);
-    // Broadcast the drawing event to all other connected clients
-    socket.broadcast.emit('draw', drawingEvent);
+  // Join room
+  socket.on('join-room', (roomId: string) => {
+    socket.join(roomId);
+    logger.info(`Socket ${socket.id} joined room ${roomId}`);
+  });
+
+  // Receive and broadcast drawing to room
+  socket.on('draw', ({ roomId, stroke }: { roomId: string; stroke: DrawingEvent }) => {
+    if (!roomId || !stroke) return;
+
+    if (!canvasStore[roomId]) {
+      canvasStore[roomId] = [];
+    }
+    canvasStore[roomId].push(stroke);
+
+    socket.to(roomId).emit('draw', stroke);
+  });
+
+  // Handle full canvas request
+  socket.on('request-canvas-data', ({ roomId }) => {
+    const canvasData = canvasStore[roomId] || [];
+    socket.emit('canvas-data', canvasData);
   });
 
   socket.on('disconnect', () => {
-    logger.info('User disconnected:', socket.id);
+    console.log('Client disconnected');
   });
 });
 

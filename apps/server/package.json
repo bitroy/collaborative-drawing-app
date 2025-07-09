@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon",
     "build": "tsc",
     "start": "node dist/server.js",
     "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0",
@@ -28,6 +28,8 @@
     "@types/node": "^24.0.10",
     "@types/pino": "^7.0.5",
     "nodemon": "^3.1.10",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   }
 }
