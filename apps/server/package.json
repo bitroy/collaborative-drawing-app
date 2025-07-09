@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.46.0",
+    "@drawing-app/types": "workspace:*",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pino": "^9.7.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.10",
+    "@types/pino": "^7.0.5",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2"
+  }
+}

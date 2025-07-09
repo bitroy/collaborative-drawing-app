@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+
+/* Light theme variables */
+:root {
+  --color-bg: #f8fafc; /* slate-50 */
+  --color-text: #1e293b; /* slate-800 */
+  --color-primary: #4f46e5; /* indigo-600 */
+  --color-primary-hover: #4338ca;
+  --color-border: #cbd5e1; /* slate-300 */
+  --color-shadow: rgba(79, 70, 229, 0.3); /* indigo-600 shadow */
+
+  --btn-red: #ef4444; /* red-500 */
+  --btn-red-hover: #dc2626;
+
+  --btn-gray: #4b5563; /* gray-600 */
+  --btn-gray-hover: #374151;
+
+  --btn-indigo: #6366f1; /* indigo-500 */
+  --btn-indigo-hover: #4f46e5;
+
+  --btn-green: #16a34a; /* green-600 */
+  --btn-green-hover: #15803d;
+}
+
+/* Apply variables in base styles */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f172a; /* slate-900 */
+    --color-text: #e0e7ff; /* indigo-200 */
+    --color-primary: #818cf8; /* indigo-400 */
+    --color-primary-hover: #6366f1;
+    --color-border: #334155; /* slate-700 */
+    --color-shadow: rgba(129, 140, 248, 0.3); /* indigo-400 shadow */
+
+    --btn-red: #dc2626;
+    --btn-red-hover: #b91c1c;
+
+    --btn-gray: #9ca3af;
+    --btn-gray-hover: #6b7280;
+
+    --btn-indigo: #818cf8;
+    --btn-indigo-hover: #6366f1;
+
+    --btn-green: #22c55e;
+    --btn-green-hover: #16a34a;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+}
