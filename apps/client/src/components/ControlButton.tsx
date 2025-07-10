@@ -30,8 +30,11 @@ export default function ControlButton({
         min-w-[48px] min-h-[48px]
         transition-colors duration-200 ease-in-out
         active:scale-95
+        select-none
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
       "
       aria-label={label}
+      type="button"
     >
       <span className="text-xl">{icon}</span>
       <span className="hidden sm:inline text-sm font-medium">{label}</span>

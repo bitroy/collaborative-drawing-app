@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ControlsPanel } from './components/ControlsPanel';
 import { DrawingCanvas } from './components/DrawingCanvas';
 import { ShareButton } from './components/ShareButton';
@@ -8,18 +9,13 @@ interface AppProps {
 }
 
 export default function App({ roomId }: AppProps) {
-  const {
-    canvasRef,
-    strokeColor,
-    strokeWidth,
-    handleColorChange,
-    handleWidthChange,
-    clear,
-    reset,
-    undo,
-    redo,
-    exportImage,
-  } = useCanvasControls();
+  const { onRoomChange } = useCanvasControls();
+
+  useEffect(() => {
+    if (roomId) {
+      onRoomChange(roomId);
+    }
+  }, [roomId, onRoomChange]);
 
   return (
     <div
@@ -37,24 +33,9 @@ export default function App({ roomId }: AppProps) {
         <ShareButton roomId={roomId} />
       </div>
 
-      <ControlsPanel
-        strokeColor={strokeColor}
-        strokeWidth={strokeWidth}
-        onColorChange={(e) => handleColorChange(e.target.value)}
-        onWidthChange={(e) => handleWidthChange(Number(e.target.value))}
-        onClear={clear}
-        onReset={reset}
-        onUndo={undo}
-        onRedo={redo}
-        onExport={exportImage}
-      />
+      <ControlsPanel />
 
-      <DrawingCanvas
-        ref={canvasRef}
-        strokeColor={strokeColor}
-        strokeWidth={strokeWidth}
-        roomId={roomId}
-      />
+      <DrawingCanvas roomId={roomId} />
     </div>
   );
 }

@@ -28,7 +28,6 @@ export function ShareButton({ roomId }: ShareButtonProps) {
 
   return (
     <div className="flex items-center space-x-2 max-w-fit">
-      {/* Button */}
       <button
         onClick={handleCopy}
         aria-label="Share Room"
@@ -44,7 +43,6 @@ export function ShareButton({ roomId }: ShareButtonProps) {
         <span className="hidden sm:inline ml-2">Share Room</span>
       </button>
 
-      {/* Message */}
       {copied && (
         <div
           role="alert"

@@ -58,13 +58,21 @@ io.on('connection', (socket) => {
     }
     canvasStore[roomId].push(stroke);
 
+    logger.info(`Room ${roomId} - Draw`);
     socket.to(roomId).emit('draw', stroke);
   });
 
   // Handle full canvas request
   socket.on('request-canvas-data', ({ roomId }) => {
     const canvasData = canvasStore[roomId] || [];
+    logger.info(`Room ${roomId} - Canvas-Data`);
     socket.emit('canvas-data', canvasData);
+  });
+
+  // Receive action controls
+  socket.on('canvas-action', ({ type, roomId }) => {
+    logger.info(`Room ${roomId} - Canvas-Action ${type}`);
+    socket.to(roomId).emit('canvas-action', { type });
   });
 
   socket.on('disconnect', () => {
