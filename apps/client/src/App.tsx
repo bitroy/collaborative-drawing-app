@@ -18,17 +18,7 @@ export default function App({ roomId }: AppProps) {
   }, [roomId, onRoomChange]);
 
   return (
-    <div
-      className="flex flex-col items-center justify-center min-h-screen p-6 space-y-8"
-      style={{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }}
-    >
-      <h1
-        className="text-4xl font-extrabold drop-shadow-sm my-3"
-        style={{ color: 'var(--color-primary)' }}
-      >
-        Collaborative Drawing App
-      </h1>
-
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 space-y-8 bg-[var(--color-bg)] text-[var(--color-text)]">
       <div className="sm:self-auto self-start my-3">
         <ShareButton roomId={roomId} />
       </div>
